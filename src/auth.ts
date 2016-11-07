@@ -173,7 +173,7 @@ export class MetryAuth {
 
       // Check for OAuth refresh token
       if (!this.refreshToken) {
-        reject()
+        reject('MetryAuth: Request authorization enabled, but no type of token was found')
         return
       }
 
@@ -182,7 +182,7 @@ export class MetryAuth {
           request.headers.append('Authorization', `Bearer ${accessToken.access_token}`)
           resolve(request)
         }, function () {
-          reject()
+          reject('MetryAuth: Fetching access token failed')
         })
     })
   }
@@ -260,4 +260,3 @@ export class MetryAuth {
       )
   }
 }
-
