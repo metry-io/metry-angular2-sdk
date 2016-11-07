@@ -89,28 +89,49 @@ function makeRequest (
   resource: MetryResource,
   id: string,
   method: string,
-  data: any,
+  data?: any,
   extraConfig?: RequestOptions,
   action?: string
 ): Request {
   const meth = mergedMethod(method, extraConfig)
+  const inBody = dataInBody(meth)
 
-  return new Request(
-    new RequestOptions(
-      Object.assign(
-        {
-          method: meth,
-          url: resourceUrl(resource, id, action),
-          data: useData(meth) ? data : null,
-          params: !useData(meth) ? filterEmptyValues(data) : null
-        },
-        extraConfig || {}
-      )
-    )
-  )
+  let options = new RequestOptions({
+    method: meth,
+    url: resourceUrl(resource, id, action),
+    body: inBody? requestBody(data) : '',
+    search: !inBody ? requestSearch(data) : null
+  })
+
+  if (extraConfig) options.merge(extraConfig)
+
+  return new Request(options)
 }
 
-function useData (method: string|RequestMethod) {
+function requestBody (data?: Object) {
+  return JSON.stringify(data)
+}
+
+function requestSearch (data?: Object) {
+  if (data == null) return null
+
+  let searchParams = new URLSearchParams()
+
+  Object.keys(data)
+    .forEach((key) => {
+      let value = data[key]
+      searchParams.append(
+        key,
+        typeof value === 'string'
+          ? value
+          : value.toString()
+      )
+    })
+
+  return searchParams
+}
+
+function dataInBody (method: string|RequestMethod) {
   return (method === RequestMethod.Put || method === RequestMethod.Post) ||
     (typeof method === 'string' && ['PUT', 'POST'].indexOf(method) !== -1)
 }
