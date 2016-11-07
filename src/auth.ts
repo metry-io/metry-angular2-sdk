@@ -33,7 +33,7 @@ export class MetryAuth {
   constructor (
     private http: Http,
     @Inject('MetryBaseUrl') private baseUrl: string,
-    @Inject('MetryAuthConfig') private config: MetryAuthConfigOptions,
+    @Inject('MetryAuthConfig') public config: MetryAuthConfigOptions,
   ) {
     this.requestQueue = []
     this.fetchingAccessToken = false
