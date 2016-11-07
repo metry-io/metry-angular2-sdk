@@ -72,8 +72,8 @@ export class MetryResource {
     )
   }
 
-  action (action: string, id: string, data: any, options?: RequestOptions): Promise<any> {
-    return this.metry.request(makeRequest(this, id, 'PUT', data, options))
+  action (action: string, id?: string, data?: any, options?: RequestOptions): Promise<any> {
+    return this.metry.request(makeRequest(this, id, 'PUT', data, options, action))
   }
 
   of (parent: string, parentId?: string): MetryResource {
@@ -91,7 +91,7 @@ function metricsParam (metrics?: Array<string>|string): string {
 
 function makeRequest (
   resource: MetryResource,
-  id: string,
+  id: string|null,
   method: string,
   data?: any,
   extraConfig?: RequestOptions,

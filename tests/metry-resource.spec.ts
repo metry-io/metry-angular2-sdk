@@ -255,6 +255,29 @@ describe('Metry Resource', () => {
   )
 
   it(
+    'should run an action for a collection with PUT as default',
+    async(
+      inject([Metry, MockBackend], (metry: Metry, mockBackend: MockBackend) => {
+        let action = 'postpone_all'
+
+        let expectedConnections = [
+          {
+            url: `${BASE_URL}${API_VERSION}/tests/${action}`,
+            method: RequestMethod.Put,
+            respond: {success: true}
+          }
+        ]
+
+        expectConnections(mockBackend.connections, expectedConnections)
+
+        metry
+          .resource('tests')
+          .action(action)
+      })
+    )
+  )
+
+  it(
     'should run batch update for a resource with PUT as default',
     async(
       inject([Metry, MockBackend], (metry: Metry, mockBackend: MockBackend) => {
