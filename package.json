@@ -1,6 +1,6 @@
 {
   "name": "metry-angular2-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Metry Angular2 SDK",
   "main": "dist/index.js",
   "module": "dist/index.js",
