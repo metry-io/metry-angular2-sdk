@@ -32,7 +32,7 @@ export class Metry {
             return this.parseResponse(res.json())
           },
           (res) => {
-            return this.handleError(res.json())
+            return this.handleError(res.json(), res.status)
           })
       })
   }
@@ -55,16 +55,13 @@ export class Metry {
     }
   }
 
-  handleError (res: any): Promise<any> {
-    if (typeof res === 'object' && res.code === 401) {
+  handleError (res: any, status: number): Promise<any> {
+    if (typeof res === 'object' && status === 401) {
       this.auth.privateToken = null
     }
 
-    if (!res || res.code === 401) {
-      //$rootScope.$broadcast(EVENT_LOGIN_NEEDED)
-      return Promise.reject(res)
-    }
-
-    return Promise.reject((res && res.data && res.data.errors) ? res.data.errors : res)
+    return (!res || status === 401)
+      ? Promise.reject(res)
+      : Promise.reject((res && res.data && res.data.errors) ? res.data.errors : res)
   }
 }
