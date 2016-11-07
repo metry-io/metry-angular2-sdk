@@ -6,10 +6,11 @@ The Angular 2 version of the Metry API SDK.
 
 SDK is distributed through npm, so install using `npm i --save metry-angular2-sdk` or `yarn add metry-angular2-sdk` if you're into that kind of thing.
 
-
 ## Adding to your application
 
 *These docs will be updated as we learn more best practices using Angular 2.*
+
+The Angular 2 SDK currently only consists of Typescript files that should be imported indiviually as needed. If desirable, we will provide transpiled versions for projects that don't use TypeScript later on.
 
 Provide the MetryBaseUrl and MetryAuthConfig constants to your Angular bootstrap method.
 
