@@ -7,6 +7,8 @@ import { MetryAuth } from './auth'
 
 @Injectable()
 export class Metry {
+  apiPath: string = 'api/v2'
+
   constructor (
     private http: Http,
     private auth: MetryAuth,
@@ -18,7 +20,7 @@ export class Metry {
   }
 
   request (req: Request): Promise<any> {
-    req.url = makeUrl([this.baseUrl, req.url])
+    req.url = makeUrl([this.baseUrl, this.apiPath, req.url])
 
     return this.auth
       .authorize(req)
