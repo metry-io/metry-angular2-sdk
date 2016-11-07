@@ -22,12 +22,16 @@ export class MetryResource {
   getData (
     id: string,
     granularity: string,
-    ranges: Array<string>,
-    metrics: Array<string>,
+    ranges: Array<string>|string,
+    metrics?: Array<string>|string,
     extraParams?: URLSearchParams
   ): Promise<any> {
     const search = new URLSearchParams()
     search.set('metrics', metricsParam(metrics))
+
+    if (!Array.isArray(ranges)) {
+      ranges = [ranges]
+    }
 
     if (extraParams != null) {
       search.appendAll(extraParams)
