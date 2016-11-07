@@ -71,7 +71,7 @@ export class MetryAuth {
       })
       .toPromise()
       .then((res: Response) => {
-        const token = res.json().data
+        const token = res.json()
         this.refreshToken = token ? token.refresh_token : null
         this.accessToken = token
       })
@@ -242,7 +242,7 @@ export class MetryAuth {
     )
     .toPromise()
     .then((res: Response) => {
-      return res.json().data
+      return res.json()
     }, () => {
       return Promise.resolve(null)
     })
