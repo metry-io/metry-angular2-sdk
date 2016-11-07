@@ -1,11 +1,11 @@
-interface Storage {
+export interface WrappedStorage {
   setItem: (key: string, value?: any) => void
   removeItem: (key: string) => void
   getItem: (key: string) => any
 }
 
 let _data = {}
-let _tempStorage: Storage
+let _tempStorage: WrappedStorage
 
 const hasLocalStorage = (function () {
   try {
@@ -25,6 +25,6 @@ const hasLocalStorage = (function () {
   return false
 })()
 
-export function storage (): Storage {
-  return hasLocalStorage ? <Storage>window.localStorage : _tempStorage
+export function storage (): WrappedStorage {
+  return hasLocalStorage ? <WrappedStorage>window.localStorage : _tempStorage
 }
