@@ -106,7 +106,7 @@ function makeRequest (
     body: inBody? requestBody(data) : '',
     search: !inBody ? requestSearch(data) : null,
     headers: inBody
-      ? new Headers({'Content-type': 'application/json;charset=UTF-8'})
+      ? new Headers({'Content-type': 'application/json'})
       : null
   })
 

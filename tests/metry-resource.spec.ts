@@ -190,7 +190,7 @@ describe('Metry Resource', () => {
             method: RequestMethod.Post,
             body: test,
             headers: {
-              'Content-type': 'application/json;charset=UTF-8'
+              'Content-type': 'application/json'
             },
             respond: {success: true}
           }
@@ -220,7 +220,7 @@ describe('Metry Resource', () => {
             method: RequestMethod.Put,
             body: {name: 'Passing test'},
             headers: {
-              'Content-type': 'application/json;charset=UTF-8'
+              'Content-type': 'application/json'
             },
             respond: {success: true}
           }
