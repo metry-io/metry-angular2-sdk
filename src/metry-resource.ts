@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import { Request, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http'
+import { Headers, Request, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http'
 import { makeUrl } from './util/make-url'
 import { Metry } from './metry'
 
@@ -104,7 +104,10 @@ function makeRequest (
     method: meth,
     url: resourceUrl(resource, id, action),
     body: inBody? requestBody(data) : '',
-    search: !inBody ? requestSearch(data) : null
+    search: !inBody ? requestSearch(data) : null,
+    headers: inBody
+      ? new Headers({'Content-type': 'application/json;charset=UTF-8'})
+      : null
   })
 
   if (extraConfig) options.merge(extraConfig)

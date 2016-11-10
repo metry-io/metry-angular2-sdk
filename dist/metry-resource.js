@@ -1,4 +1,4 @@
-import { Request, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http';
+import { Headers, Request, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http';
 import { makeUrl } from './util/make-url';
 const METRIC_DEFAULT = 'energy';
 export class MetryResource {
@@ -65,7 +65,10 @@ function makeRequest(resource, id, method, data, extraConfig, action) {
         method: meth,
         url: resourceUrl(resource, id, action),
         body: inBody ? requestBody(data) : '',
-        search: !inBody ? requestSearch(data) : null
+        search: !inBody ? requestSearch(data) : null,
+        headers: inBody
+            ? new Headers({ 'Content-type': 'application/json;charset=UTF-8' })
+            : null
     });
     if (extraConfig)
         options.merge(extraConfig);

@@ -177,6 +177,65 @@ describe('Metry Resource', () => {
   )
 
   it(
+    'should POST data with JSON content-type',
+    async(
+      inject([Metry, MockBackend], (metry: Metry, mockBackend: MockBackend) => {
+        let test = {
+          name: 'Passing test'
+        }
+
+        let expectedConnections = [
+          {
+            url: `${BASE_URL}${API_VERSION}/tests`,
+            method: RequestMethod.Post,
+            body: test,
+            headers: {
+              'Content-type': 'application/json;charset=UTF-8'
+            },
+            respond: {success: true}
+          }
+        ]
+
+        expectConnections(mockBackend.connections, expectedConnections)
+
+        metry
+          .resource('tests')
+          .save(test)
+      })
+    )
+  )
+
+  it(
+    'should POST data with JSON content-type',
+    async(
+      inject([Metry, MockBackend], (metry: Metry, mockBackend: MockBackend) => {
+        let test = {
+          _id: 'abcde',
+          name: 'Passing test'
+        }
+
+        let expectedConnections = [
+          {
+            url: `${BASE_URL}${API_VERSION}/tests/abcde`,
+            method: RequestMethod.Put,
+            body: {name: 'Passing test'},
+            headers: {
+              'Content-type': 'application/json;charset=UTF-8'
+            },
+            respond: {success: true}
+          }
+        ]
+
+        expectConnections(mockBackend.connections, expectedConnections)
+
+        metry
+          .resource('tests')
+          .save(test)
+      })
+    )
+  )
+
+  it(
     'should not alter the PUT object when saving',
     async(
       inject([Metry, MockBackend], (metry: Metry, mockBackend: MockBackend) => {
